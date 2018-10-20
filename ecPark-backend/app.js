@@ -3,6 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
+var clarifaiRouter = require("./routes/clarifai.js");
+
+app.use("/clarifai", clarifaiRouter);
+
 //const config = require('./config/database');
 //const mongoose = require('mongoose');
 //var admin = require("firebase-admin");

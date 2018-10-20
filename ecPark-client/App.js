@@ -48,7 +48,7 @@ export default class App extends React.Component {
     }
   }
   testAPI = () => {
-    fetch("http://10.136.21.176:8000/testConnection") //put your machine's IPv4 address here (System Preferences>>Network>>TCP/IP)
+    fetch("http:128.61.32.173:8000/testConnection") //put your machine's IPv4 address here (System Preferences>>Network>>TCP/IP)
     .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

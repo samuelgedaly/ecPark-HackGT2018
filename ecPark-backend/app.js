@@ -6,7 +6,7 @@ const expressValidator = require('express-validator');
 //const config = require('./config/database');
 //const mongoose = require('mongoose');
 //var admin = require("firebase-admin");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 const app = express();
 

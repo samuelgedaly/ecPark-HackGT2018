@@ -25,7 +25,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.helpContainer}>
-            <Text style={styles.helpLinkText}>ezPark</Text>
+            <Text style={styles.helpLinkText}>The Saving Game</Text>
           </View>
           <View style={styles.helpContainer}>
             <TouchableOpacity onPress={this.testAPI} style={styles.helpLink}>
@@ -52,9 +52,6 @@ export default class App extends React.Component {
     }
   }
   testAPI = () => {
-    fetch("http://10.136.21.176:3000/testConnection") //put your machine's IPv4 address here (System Preferences>>Network>>TCP/IP)
-    .then((response) => response.json())
-      .then((responseJson) => {
     fetch(
       "http://" +
         config.LOCAL_IP +

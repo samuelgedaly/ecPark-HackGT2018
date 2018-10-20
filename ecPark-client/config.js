@@ -1,7 +1,7 @@
 let config = {
   DEBUG: true,
-  LOCAL_IP: "XXX.XXX.XXX.XXX",
-  backend_port: "3000"
+  LOCAL_IP: "10.136.11.227",
+  backend_port: "8000"
 };
 
 export default config;

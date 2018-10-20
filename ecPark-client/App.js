@@ -9,7 +9,7 @@ import {
   View,
   NavigatorIOS
 } from "react-native";
-impoer config from "./config";
+import config from "./config";
 
 export default class App extends React.Component {
   constructor(props) {

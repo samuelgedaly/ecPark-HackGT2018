@@ -3,9 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
-var clarifaiRouter = require("./routes/clarifai.js");
 
-app.use("/clarifai", clarifaiRouter);
+var clarifaiRouter = require("./routes/clarifai");
 
 //const config = require('./config/database');
 //const mongoose = require('mongoose');
@@ -13,6 +12,9 @@ app.use("/clarifai", clarifaiRouter);
 const port = process.env.PORT || 8000;
 
 const app = express();
+
+app.use("/clarifai", clarifaiRouter);
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/testConnection', function(req, res) {

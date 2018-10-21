@@ -14,7 +14,7 @@ const app = new Clarifai.App({
 let concepts;
 
 
-var prediction = (concepts) => {
+let prediction = (concepts) => {
     // console.log(concepts);
     var i;
     for (i = 0; i < concepts.length; i++) {
@@ -33,13 +33,14 @@ router.post("/", upload.single('image'), (req, res) => {
             res.sendStatus(500);
         }
         app.models.predict(Clarifai.GENERAL_MODEL, {base64: data.toString('base64')})
-          .then(response => {
+          .then(async response => {
 
             concepts = response['outputs'][0]['data']['concepts'];
 
             let pred = prediction(concepts);
 
             if (pred == true) {
+                let tag = await predictImg(req.file.path);
 
                 res.sendStatus(200);
             } else {

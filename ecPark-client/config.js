@@ -1,6 +1,6 @@
 let config = {
   DEBUG: true,
-  LOCAL_IP: "10.136.11.227",
+  LOCAL_IP: "128.61.32.173",
   backend_port: "8000"
 };
 

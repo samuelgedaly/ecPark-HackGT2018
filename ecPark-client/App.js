@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "react-native-axios";
 import {
   Image,
   Platform,
@@ -7,30 +8,43 @@ import {
   Text,
   TouchableOpacity,
   View,
-  NavigatorIOS
+  NavigatorIOS,
+  Button,
 } from "react-native";
 import config from "./config";
+import { TextField } from 'react-native-material-textfield';
+import t from 'tcomb-form-native';
+const Form = t.form.Form;
+
+const User = t.struct({
+  Email: t.String,
+  Password: t.String,
+  //Licenseplate number: t.String,
+  //Credit Card number: t.String,
+});
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      page: "1"
+      page: "1",
+      email: '',
     };
   }
+
 
   render() {
     if (this.state.page === "1") {
       return (
         <View style={styles.container}>
           <View style={styles.helpContainer}>
-            <Text style={styles.helpLinkText}>The Saving Game</Text>
+            <Text fontWeight='300' color='#008000'>ezPark</Text>
           </View>
           <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this.testAPI} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Press to talk to backend server
+            <TouchableOpacity onPress={this.signUp} style={styles.helpLink}>
+              <Text color='#008000'>
+                SignUp and take it ez
               </Text>
             </TouchableOpacity>
           </View>
@@ -49,34 +63,67 @@ export default class App extends React.Component {
           </View>
         </View>
       );
+    } else if (this.state.page === "3") {
+      return (
+
+        <View style={styles.container}>
+        <Text>Login</Text>
+          <Form ref={c => this.loginform = c} type={User} />
+          <Button
+            title="Login"
+            onPress={this.handleSubmit}
+          />
+        </View>
+      );
     }
   }
-  testAPI = () => {
-    fetch(
+  signUp = () => {
+    this.setState({
+      page: "3"
+    });
+  };
+
+  goBack = () => {
+    this.setState({
+      page: "3"
+    });
+  };
+
+  handleSubmit = () => {
+    //console.log(this.loginform);
+    /*let rawResponse = await fetch(
       "http://" +
         config.LOCAL_IP +
         ":" +
         config.backend_port +
         "/" +
-        "testConnection"
-    ) //put your machine's IPv4 address here (System Preferences>>Network>>TCP/IP)
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({
-          backendMsg: responseJson.message,
-          page: "2"
-        });
-      })
-      .catch(error => {
-        console.error(error);
+        "postUserData", {
+        method: 'POST',
+        headers: {
+             Accept: 'application/json',
+            'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email: 'Samuel Gedaly',
+          password: 'cartuchera',
+        }),
       });
-  };
+      const content = await rawResponse.json();
 
-  goBack = () => {
-    this.setState({
-      page: "1"
-    });
-  };
+      console.log(content);*/
+      axios.get("http://" +
+        config.LOCAL_IP +
+        ":" +
+        config.backend_port +
+        "/" +
+        "postUserData/?email=samuelgedaly@gatech.edu&pass=Cartuchera2018")
+      .then(function (response) {
+        console.log("hello");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
 }
 
 const styles = StyleSheet.create({

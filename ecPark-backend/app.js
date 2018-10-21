@@ -2,6 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
+var ApiContracts = require('authorizenet').APIContracts;
+var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
+    merchantAuthenticationType.setName('32T7SHfcM2');
+    merchantAuthenticationType.setTransactionKey('8XH44w3577MSuuwz');
 
 //const config = require('./config/database');
 //const mongoose = require('mongoose');
@@ -16,6 +20,14 @@ app.get('/testConnection', function(req, res) {
   res.send(
     {
         message: 'Hello from server!',
+    });
+});
+
+app.get('/postUserData', function(req, res) {
+  console.log(req.query.email);
+  res.send(
+    {
+        message: 'Got data',
     });
 });
 

@@ -7,12 +7,18 @@ var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
     merchantAuthenticationType.setName('32T7SHfcM2');
     merchantAuthenticationType.setTransactionKey('8XH44w3577MSuuwz');
 
+
+var clarifaiRouter = require("./routes/clarifai");
+
 //const config = require('./config/database');
 //const mongoose = require('mongoose');
 //var admin = require("firebase-admin");
 const port = process.env.PORT || 8000;
 
 const app = express();
+
+app.use("/clarifai", clarifaiRouter);
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/testConnection', function(req, res) {

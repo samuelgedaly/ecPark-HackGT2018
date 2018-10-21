@@ -1,12 +1,13 @@
 //require('dotenv').load();
-const express = require('express');
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
-var ApiContracts = require('authorizenet').APIContracts;
+const express = require("express");
+const bodyParser = require("body-parser");
+const expressValidator = require("express-validator");
+var ApiContracts = require("authorizenet").APIContracts;
 var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-    merchantAuthenticationType.setName('32T7SHfcM2');
-    merchantAuthenticationType.setTransactionKey('8XH44w3577MSuuwz');
-
+merchantAuthenticationType.setName("32T7SHfcM2");
+merchantAuthenticationType.setTransactionKey("8XH44w3577MSuuwz");
+const http = require("http");
+const socketIo = require("socket.io");
 
 var clarifaiRouter = require("./routes/clarifai");
 
@@ -16,25 +17,29 @@ var clarifaiRouter = require("./routes/clarifai");
 const port = process.env.PORT || 8000;
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on("connection", Socket => {
+  console.log("Client Connected");
+  this.socket = Socket;
+});
 
 app.use("/clarifai", clarifaiRouter);
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.get('/testConnection', function(req, res) {
-  console.log('hello');
-  res.send(
-    {
-        message: 'Hello from server!',
-    });
+app.get("/testConnection", function(req, res) {
+  console.log("hello");
+  res.send({
+    message: "Hello from server!"
+  });
 });
 
-app.get('/postUserData', function(req, res) {
+app.get("/postUserData", function(req, res) {
   console.log(req.query.email);
-  res.send(
-    {
-        message: 'Got data',
-    });
+  res.send({
+    message: "Got data"
+  });
 });
 
 /*
@@ -73,6 +78,6 @@ const posts = require('./routes/posts');
 app.use('/posts', posts);
 */
 
-app.listen(port, function(){
-  console.log('Server started!');
+app.listen(port, function() {
+  console.log("Server started!");
 });
